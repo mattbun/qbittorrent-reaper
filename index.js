@@ -1,11 +1,8 @@
 const Promise = require('bluebird');
 const api = require('qbittorrent-api-v2');
-const parseDuration = require('parse-duration');
 
 const readConfig = require('./lib/config');
 const { subtractFromToday, convertQBDateToDate } = require('./lib/date');
-
-const MILLISECONDS_IN_ONE_SECOND = 1000;
 
 const config = readConfig();
 
