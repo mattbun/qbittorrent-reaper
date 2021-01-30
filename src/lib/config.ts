@@ -1,4 +1,4 @@
-module.exports = function readConfig() {
+export function readConfig() {
   return {
     host: process.env.QBITTORRENT_HOST,
     user: process.env.QBITTORRENT_USER,
