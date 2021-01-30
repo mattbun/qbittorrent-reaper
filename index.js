@@ -3,7 +3,7 @@ const api = require('qbittorrent-api-v2');
 const parseDuration = require('parse-duration');
 
 const readConfig = require('./lib/config');
-const { subtractFromToday } = require('./lib/date');
+const { subtractFromToday, convertQBDateToDate } = require('./lib/date');
 
 const MILLISECONDS_IN_ONE_SECOND = 1000;
 
@@ -22,7 +22,7 @@ const config = readConfig();
     .map(torrent => ({
       hash: torrent.hash,
       name: torrent.name,
-      added_on: (new Date(torrent.added_on * MILLISECONDS_IN_ONE_SECOND)),
+      added_on: convertQBDateToDate(torrent.added_on),
     }))
     .filter(torrent => torrent.added_on < earliestTorrentDate);
 
