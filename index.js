@@ -3,6 +3,7 @@ const api = require('qbittorrent-api-v2');
 const parseDuration = require('parse-duration');
 
 const readConfig = require('./lib/config');
+const { subtractFromToday } = require('./lib/date');
 
 const MILLISECONDS_IN_ONE_SECOND = 1000;
 
@@ -15,7 +16,7 @@ const config = readConfig();
   console.info('Connected! Getting torrents...');
   const torrents = await qbittorrent.torrents();
 
-  const earliestTorrentDate = new Date((new Date().getTime()) - parseDuration(config.maxAge));
+  const earliestTorrentDate = subtractFromToday(config.maxAge);
   console.log(`Looking for torrents added before ${earliestTorrentDate}`);
   const oldTorrents = torrents
     .map(torrent => ({
