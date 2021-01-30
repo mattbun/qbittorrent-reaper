@@ -21,7 +21,8 @@ const config = readConfig();
       name: torrent.name,
       added_on: convertQBDateToDate(torrent.added_on),
     }))
-    .filter(torrent => torrent.added_on < earliestTorrentDate);
+    .filter(torrent => torrent.added_on < earliestTorrentDate)
+    .sort((a, b) => a.added_on - b.added_on);
 
   await Promise.each(oldTorrents, torrent => {
     process.stdout.write(`Removing ${torrent.name}...`);
