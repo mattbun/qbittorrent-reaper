@@ -18,8 +18,16 @@ export class QBittorrentClient {
   baseUrl: string;
   cookie: string;
 
-  constructor(host: string, port: number, useHttps: boolean) {
-    this.baseUrl = `${useHttps ? 'https' : 'http'}://${host}:${port}`;
+  constructor({
+    host,
+    port,
+    protocol,
+  }: {
+    host: string;
+    port: number;
+    protocol: string;
+  }) {
+    this.baseUrl = `${protocol}://${host}:${port}`;
   }
 
   getHeaders() {

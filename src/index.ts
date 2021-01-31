@@ -5,11 +5,11 @@ import { QBittorrentClient } from './lib/qbittorrent';
 const config = readConfig();
 
 (async () => {
-  const qbittorrent = new QBittorrentClient(
-    config.host,
-    config.port,
-    config.useHttps
-  );
+  const qbittorrent = new QBittorrentClient({
+    host: config.host,
+    port: config.port,
+    protocol: config.protocol,
+  });
 
   console.info(`Connecting to qbittorrent at ${qbittorrent.baseUrl}`);
   await qbittorrent.login(config.user, config.password);
