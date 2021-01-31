@@ -2,7 +2,7 @@ import * as Bluebird from 'bluebird';
 import * as api from 'qbittorrent-api-v2';
 
 import { readConfig } from './lib/config';
-import { subtractFromToday, convertQBDateToDate } from './lib/date';
+import { subtractFromToday } from './lib/date';
 import { parseTorrent, Torrent, QBTorrent } from './lib/qbittorrent';
 
 const config = readConfig();
