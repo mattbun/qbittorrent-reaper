@@ -15,17 +15,17 @@ export type Torrent = {
 };
 
 export class QBittorrentClient {
-  host: string;
+  baseUrl: string;
   cookie: string;
 
-  constructor(host: string) {
-    this.host = host;
+  constructor(host: string, port: number, useHttps: boolean) {
+    this.baseUrl = `${useHttps ? 'https' : 'http'}://${host}:${port}`;
   }
 
   getHeaders() {
     return {
-      Referer: `http://${this.host}`,
-      Origin: `http://${this.host}`,
+      Referer: this.baseUrl,
+      Origin: this.baseUrl,
       Cookie: this.cookie,
     };
   }
@@ -39,15 +39,12 @@ export class QBittorrentClient {
   }
 
   async login(username: string, password: string) {
-    const response = await got(`http://${this.host}/api/v2/auth/login`, {
+    const response = await got(`${this.baseUrl}/api/v2/auth/login`, {
       searchParams: {
         username,
         password,
       },
-      headers: {
-        Referer: `http://${this.host}`,
-        Origin: `http://${this.host}`,
-      },
+      headers: this.getHeaders(),
       responseType: 'text',
     });
 
@@ -56,7 +53,7 @@ export class QBittorrentClient {
 
   async getTorrents() {
     const response = await got<Array<QBTorrent>>(
-      `http://${this.host}/api/v2/torrents/info`,
+      `${this.baseUrl}/api/v2/torrents/info`,
       {
         headers: this.getHeaders(),
         searchParams: {
@@ -74,7 +71,7 @@ export class QBittorrentClient {
       return;
     }
 
-    await got(`http://${this.host}/api/v2/torrents/delete`, {
+    await got(`${this.baseUrl}/api/v2/torrents/delete`, {
       headers: this.getHeaders(),
       searchParams: {
         hashes: torrents.map((torrent) => torrent.hash).join('|'),
