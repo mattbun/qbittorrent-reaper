@@ -1,0 +1,12 @@
+services:
+  qbittorrent-reaper:
+    container_name: qbittorrent-reaper
+    build: .
+    environment:
+      - QBITTORRENT_HOST
+      - QBITTORRENT_PORT      # Defaults to 8080
+      - QBITTORRENT_PROTOCOL  # Defaults to http
+      - QBITTORRENT_USER
+      - QBITTORRENT_PASSWORD
+      - MAX_TORRENT_AGE=2w
+      - DELETE_FILES=1
