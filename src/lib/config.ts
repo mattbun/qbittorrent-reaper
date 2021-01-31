@@ -1,9 +1,10 @@
+const QBITTORRENT_DEFAULT_HOST = 'localhost';
 const QBITTORRENT_DEFAULT_PORT = 8080;
 const QBITTORRENT_DEFAULT_PROTOCOL = 'http';
 
 export function readConfig() {
   return {
-    host: process.env.QBITTORRENT_HOST,
+    host: process.env.QBITTORRENT_HOST || QBITTORRENT_DEFAULT_HOST,
     port:
       parseInt(process.env.QBITTORRENT_PORT, 10) || QBITTORRENT_DEFAULT_PORT,
     protocol: process.env.QBITTORRENT_PROTOCOL || QBITTORRENT_DEFAULT_PROTOCOL,

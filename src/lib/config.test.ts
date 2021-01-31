@@ -27,6 +27,14 @@ describe('readConfig', () => {
     });
   });
 
+  it('defaults to host localhost', () => {
+    process.env.QBITTORRENT_HOST = undefined;
+
+    const result = readConfig();
+
+    expect(result.host).toStrictEqual('localhost');
+  });
+
   it('defaults to port 8080', () => {
     process.env.QBITTORRENT_PORT = undefined;
 
@@ -35,7 +43,7 @@ describe('readConfig', () => {
     expect(result.port).toStrictEqual(8080);
   });
 
-  it('defaults to http', () => {
+  it('defaults to protocol http', () => {
     process.env.QBITTORRENT_PROTOCOL = undefined;
 
     const result = readConfig();
