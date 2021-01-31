@@ -1,38 +1,34 @@
-import * as Bluebird from 'bluebird';
-import * as api from 'qbittorrent-api-v2';
-
 import { readConfig } from './lib/config';
 import { subtractFromToday } from './lib/date';
-import { parseTorrent, Torrent, QBTorrent } from './lib/qbittorrent';
+import { QBittorrentClient } from './lib/qbittorrent';
 
 const config = readConfig();
 
 (async () => {
   console.info(`Connecting to qbittorrent at ${config.host}...`);
-  const qbittorrent = await api.connect(
-    config.host,
-    config.user,
-    config.password
-  );
+  const qbittorrent = new QBittorrentClient(config.host);
+  await qbittorrent.login(config.user, config.password);
 
   console.info('Connected! Getting torrents...');
-  const torrents: Array<QBTorrent> = await qbittorrent.torrents();
+  const allTorrents = await qbittorrent.getTorrents();
 
   const earliestTorrentDate = subtractFromToday(config.maxAge);
   console.log(`Looking for torrents added before ${earliestTorrentDate}`);
-  const oldTorrents = torrents
-    .map(parseTorrent)
+  const oldTorrents = allTorrents
     .filter((torrent) => torrent.addedOn < earliestTorrentDate)
     .sort((a, b) => a.addedOn.getTime() - b.addedOn.getTime());
 
-  await Bluebird.each<Torrent>(oldTorrents, (torrent) => {
-    process.stdout.write(`Removing ${torrent.name}...`);
+  if (oldTorrents.length < 1) {
+    console.info('Nothing to delete');
+    return;
+  }
 
-    if (!config.isDryRun) {
-      // TODO actually delete the torrent
-      process.stdout.write('TODO...');
-    }
+  console.info('Deleting torrents...');
+  oldTorrents.forEach((torrent) => console.info(`  ${torrent.name}`));
 
-    process.stdout.write(' Done\n');
-  });
+  if (!config.isDryRun) {
+    await qbittorrent.deleteTorrents(oldTorrents, config.deleteFiles);
+  }
+
+  console.info('Done');
 })().catch((error) => console.error(error));

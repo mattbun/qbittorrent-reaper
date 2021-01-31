@@ -5,5 +5,6 @@ export function readConfig() {
     password: process.env.QBITTORRENT_PASSWORD,
     maxAge: process.env.MAX_TORRENT_AGE,
     isDryRun: !!process.env.DRY_RUN,
+    deleteFiles: !!process.env.DELETE_FILES,
   };
 }
