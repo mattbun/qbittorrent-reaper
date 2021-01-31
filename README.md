@@ -4,7 +4,7 @@ Configuration options are passed via environment variables. Available options ar
 
 | Name | Default | Description |
 |---|---|---|
-| QBITTORRENT_HOST |   | The hostname or IP address of the qbittorrent server  |
+| QBITTORRENT_HOST | `localhost` | The hostname or IP address of the qbittorrent server  |
 | QBITTORRENT_PORT | `8080` | The port to use when communicating with the qbittorrent server |
 | QBITTORRENT_PROTOCOL | `http` | The protocol to use when communicating with the qbittorrent server (`http` or `https`) |
 | QBITTORRENT_USERNAME | | The username to use when authenticating with qbittorrent |
