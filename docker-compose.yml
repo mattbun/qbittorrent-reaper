@@ -6,7 +6,7 @@ services:
       - QBITTORRENT_HOST
       - QBITTORRENT_PORT      # Defaults to 8080
       - QBITTORRENT_PROTOCOL  # Defaults to http
-      - QBITTORRENT_USER
+      - QBITTORRENT_USERNAME
       - QBITTORRENT_PASSWORD
       - MAX_TORRENT_AGE=2w
       - DELETE_FILES=1

@@ -6,7 +6,7 @@ describe('readConfig', () => {
       QBITTORRENT_HOST: 'some host',
       QBITTORRENT_PORT: '1111',
       QBITTORRENT_PROTOCOL: 'abcd',
-      QBITTORRENT_USER: 'some user',
+      QBITTORRENT_USERNAME: 'some user',
       QBITTORRENT_PASSWORD: 'some secret password',
       MAX_TORRENT_AGE: '2d',
       DELETE_FILES: '1',

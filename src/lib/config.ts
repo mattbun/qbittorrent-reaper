@@ -8,7 +8,7 @@ export function readConfig() {
     port:
       parseInt(process.env.QBITTORRENT_PORT, 10) || QBITTORRENT_DEFAULT_PORT,
     protocol: process.env.QBITTORRENT_PROTOCOL || QBITTORRENT_DEFAULT_PROTOCOL,
-    user: process.env.QBITTORRENT_USER,
+    user: process.env.QBITTORRENT_USERNAME,
     password: process.env.QBITTORRENT_PASSWORD,
     maxAge: process.env.MAX_TORRENT_AGE,
     isDryRun: !!process.env.DRY_RUN,
