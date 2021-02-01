@@ -1,6 +1,6 @@
 import got from 'got';
 
-import { convertQBDateToDate } from './date';
+import { convertEpochSecondsToDate } from './date';
 import { BitTorrentClient, Torrent } from './reaper';
 
 export type QBTorrent = {
@@ -45,7 +45,7 @@ export class QBittorrentClient implements BitTorrentClient {
     return {
       id: torrent.hash,
       name: torrent.name,
-      addedOn: convertQBDateToDate(torrent.added_on),
+      addedOn: convertEpochSecondsToDate(torrent.added_on),
     };
   }
 
