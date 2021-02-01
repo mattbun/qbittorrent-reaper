@@ -16,14 +16,18 @@ describe('readConfig', () => {
     const result = readConfig();
 
     expect(result).toStrictEqual({
-      host: 'some host',
-      port: 1111,
-      protocol: 'abcd',
-      user: 'some user',
-      password: 'some secret password',
-      maxAge: '2d',
-      deleteFiles: true,
-      isDryRun: true,
+      qbittorrent: {
+        host: 'some host',
+        port: 1111,
+        protocol: 'abcd',
+        username: 'some user',
+        password: 'some secret password',
+      },
+      options: {
+        maxAge: '2d',
+        deleteFiles: true,
+        dryRun: true,
+      },
     });
   });
 
@@ -32,7 +36,7 @@ describe('readConfig', () => {
 
     const result = readConfig();
 
-    expect(result.host).toStrictEqual('localhost');
+    expect(result.qbittorrent.host).toStrictEqual('localhost');
   });
 
   it('defaults to port 8080', () => {
@@ -40,7 +44,7 @@ describe('readConfig', () => {
 
     const result = readConfig();
 
-    expect(result.port).toStrictEqual(8080);
+    expect(result.qbittorrent.port).toStrictEqual(8080);
   });
 
   it('defaults to protocol http', () => {
@@ -48,7 +52,7 @@ describe('readConfig', () => {
 
     const result = readConfig();
 
-    expect(result.protocol).toStrictEqual('http');
+    expect(result.qbittorrent.protocol).toStrictEqual('http');
   });
 
   it('sets isDryRun to false if DRY_RUN is unset', () => {
@@ -56,7 +60,7 @@ describe('readConfig', () => {
 
     const result = readConfig();
 
-    expect(result.isDryRun).toStrictEqual(false);
+    expect(result.options.dryRun).toStrictEqual(false);
   });
 
   it('sets deleteFiles to false if DELETE_FILES is unset', () => {
@@ -64,6 +68,6 @@ describe('readConfig', () => {
 
     const result = readConfig();
 
-    expect(result.deleteFiles).toStrictEqual(false);
+    expect(result.options.deleteFiles).toStrictEqual(false);
   });
 });
