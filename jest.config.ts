@@ -7,6 +7,7 @@ export default {
   clearMocks: true,
   coverageProvider: 'v8',
   testEnvironment: 'node',
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
