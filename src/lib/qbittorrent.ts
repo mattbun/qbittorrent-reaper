@@ -50,7 +50,7 @@ export class QBittorrentClient implements BitTorrentClient {
   }
 
   async connect() {
-    const response = await got(`${this.baseUrl}/api/v2/auth/login`, {
+    const response = await got.get(`${this.baseUrl}/api/v2/auth/login`, {
       searchParams: {
         username: this.username,
         password: this.password,
@@ -63,23 +63,8 @@ export class QBittorrentClient implements BitTorrentClient {
     this.cookie = response.headers['set-cookie'][0];
   }
 
-  async getTorrents() {
-    const response = await got<Array<QBTorrent>>(
-      `${this.baseUrl}/api/v2/torrents/info`,
-      {
-        headers: this.getHeaders(),
-        searchParams: {
-          sort: 'added_on',
-        },
-        responseType: 'json',
-      }
-    );
-
-    return response.body.map(this.parseTorrent);
-  }
-
   async getTorrentsAddedBefore(earliestAllowedDate: Date) {
-    const response = await got<Array<QBTorrent>>(
+    const response = await got.get<Array<QBTorrent>>(
       `${this.baseUrl}/api/v2/torrents/info`,
       {
         headers: this.getHeaders(),
@@ -96,12 +81,7 @@ export class QBittorrentClient implements BitTorrentClient {
   }
 
   async deleteTorrents(hashes: Array<String>, deleteFiles: boolean) {
-    // TODO keep?
-    if (hashes.length < 1) {
-      return;
-    }
-
-    await got(`${this.baseUrl}/api/v2/torrents/delete`, {
+    await got.get(`${this.baseUrl}/api/v2/torrents/delete`, {
       headers: this.getHeaders(),
       searchParams: {
         hashes: hashes.join('|'),
