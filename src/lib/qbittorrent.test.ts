@@ -62,6 +62,17 @@ describe('qbittorrent client', () => {
       );
       expect(client.cookie).toStrictEqual('some cookie');
     });
+
+    it('throws an error if authentication failed', async () => {
+      jest.spyOn(got, 'get').mockResolvedValue({
+        headers: {},
+      });
+      const client = new QBittorrentClient(connectionOptions);
+
+      expect(() => client.connect()).rejects.toThrow(
+        'Unable to authenticate with qbittorrent'
+      );
+    });
   });
 
   describe('getTorrentsAddedBefore', () => {

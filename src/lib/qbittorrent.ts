@@ -59,7 +59,10 @@ export class QBittorrentClient implements BitTorrentClient {
       responseType: 'text',
     });
 
-    // TODO handle login errors better
+    if (!response.headers['set-cookie']) {
+      throw new Error('Unable to authenticate with qbittorrent');
+    }
+
     this.cookie = response.headers['set-cookie'][0];
   }
 
