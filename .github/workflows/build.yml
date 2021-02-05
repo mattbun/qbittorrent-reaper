@@ -1,9 +1,8 @@
 name: build
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
   multi:
@@ -34,3 +33,4 @@ jobs:
           tags: |
             mattbun/qbittorrent-reaper:latest
             mattbun/qbittorrent-reaper:main
+            mattbun/qbittorrent-reaper:${{ github.event.release.tag_name }}
