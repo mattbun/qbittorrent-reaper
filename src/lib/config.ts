@@ -2,6 +2,14 @@ const QBITTORRENT_DEFAULT_HOST = 'localhost';
 const QBITTORRENT_DEFAULT_PORT = 8080;
 const QBITTORRENT_DEFAULT_PROTOCOL = 'http';
 
+export type QBittorrentConfig = {
+  protocol: string;
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+};
+
 export type Options = {
   deleteFiles: boolean;
   dryRun: boolean;
@@ -9,13 +17,7 @@ export type Options = {
 };
 
 export type Config = {
-  qbittorrent: {
-    protocol: string;
-    host: string;
-    port: number;
-    username: string;
-    password: string;
-  };
+  qbittorrent: QBittorrentConfig;
   options: Options;
 };
 
