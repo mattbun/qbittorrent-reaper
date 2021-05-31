@@ -22,7 +22,7 @@ export type Config = {
 };
 
 export function readConfig(): Config {
-  return {
+  const config = {
     qbittorrent: {
       protocol:
         process.env.QBITTORRENT_PROTOCOL || QBITTORRENT_DEFAULT_PROTOCOL,
@@ -38,4 +38,10 @@ export function readConfig(): Config {
       maxAge: process.env.MAX_TORRENT_AGE,
     },
   };
+
+  if (!config.options.maxAge) {
+    throw new Error('Please specify a MAX_TORRENT_AGE');
+  }
+
+  return config;
 }

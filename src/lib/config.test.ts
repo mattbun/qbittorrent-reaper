@@ -70,4 +70,16 @@ describe('readConfig', () => {
 
     expect(result.options.deleteFiles).toStrictEqual(false);
   });
+
+  it('throws an error if MAX_TORRENT_AGE is unset', () => {
+    process.env.MAX_TORRENT_AGE = undefined;
+
+    expect(() => readConfig()).toThrow();
+  });
+
+  it('does not throw an error if MAX_TORRENT_AGE is set to 0', () => {
+    process.env.MAX_TORRENT_AGE = '0';
+
+    expect(() => readConfig()).not.toThrow();
+  });
 });
