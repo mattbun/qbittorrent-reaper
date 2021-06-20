@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
+    "cz-conventional-changelog": "3.3.0",
     "jest": "^26.6.3",
     "semantic-release": "^17.3.7",
     "ts-jest": "^26.5.0",
@@ -40,5 +41,10 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/github"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
